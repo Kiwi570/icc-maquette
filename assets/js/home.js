@@ -170,13 +170,23 @@ function catalogue() {
   const filters = [...sec.querySelectorAll('.filter')];
   const bar = sec.querySelector('.cat__progress i');
   let pinST = null;
+  const foot = sec.querySelector('.cat__progress');
   const setupPin = () => {
     if (pinST) { pinST.kill(true); gsap.set(track, { x: 0 }); pinST = null; }
+    sec.classList.remove('is-pinned');
     if (env.calm || !env.desktop()) return;
+    // mise en page compacte pendant l'épinglage : titre, filtres et cartes entières tiennent dans l'écran
+    sec.classList.add('is-pinned');
     const dist = () => Math.max(0, track.scrollWidth - viewport.clientWidth);
-    if (dist() < 40) return;
+    if (dist() < 40) { sec.classList.remove('is-pinned'); return; }
+    // si l'ensemble dépasse la hauteur de l'écran, on épingle plus bas : le bas des cartes et la barre de progression restent visibles
+    const offset = () => {
+      const r = sec.getBoundingClientRect();
+      const bottom = (foot || track).getBoundingClientRect().bottom - r.top + 18;
+      return Math.max(0, Math.round(bottom - window.innerHeight));
+    };
     const tw = gsap.to(track, { x: () => -dist(), ease: 'none' });
-    pinST = ScrollTrigger.create({ trigger: sec, start: 'top top', end: () => `+=${dist()}`, pin: true, scrub: 0.8, animation: tw, invalidateOnRefresh: true, onUpdate: (s) => bar && gsap.set(bar, { scaleX: s.progress }) });
+    pinST = ScrollTrigger.create({ trigger: sec, start: () => `top+=${offset()} top`, end: () => `+=${dist()}`, pin: true, scrub: 0.8, animation: tw, invalidateOnRefresh: true, onUpdate: (s) => bar && gsap.set(bar, { scaleX: s.progress }) });
   };
   setupPin();
   if (!env.desktop() && bar) viewport.addEventListener('scroll', () => { const m = viewport.scrollWidth - viewport.clientWidth; gsap.set(bar, { scaleX: m > 0 ? viewport.scrollLeft / m : 0 }); }, { passive: true });

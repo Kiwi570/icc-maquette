@@ -40,6 +40,12 @@ export function detect() {
   root.classList.toggle('no-webgl', !env.webgl);
   if (!env.desktop()) root.classList.add('is-mobile');
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  // rechargement ou retour arrière : on mémorise la section visible pour y revenir (scrollRestoration manuel)
+  window.addEventListener('pagehide', () => {
+    const secs = [...document.querySelectorAll('main section[id]')]; const mid = window.innerHeight * 0.35; let best = null;
+    secs.forEach((x) => { const r = x.getBoundingClientRect(); if (r.top <= mid && r.bottom > mid) best = x.id; });
+    if (best && window.scrollY > 0) sSet('icc-pos', location.pathname + '#' + best);
+  });
 }
 
 /* Redimensionnement : regroupé, et sans réagir à la barre d'adresse des téléphones (hauteur seule) */
@@ -64,6 +70,9 @@ export function breakpointWatch() {
   const start = mq.matches;
   mq.addEventListener('change', () => {
     if (mq.matches === start) return;
+    // pas de rechargement si un formulaire a été rempli : la saisie serait perdue
+    const saisie = [...document.querySelectorAll('input, textarea, select')].some((c) => (c.type === 'checkbox' || c.type === 'radio') ? c.checked !== c.defaultChecked : c.value !== c.defaultValue);
+    if (saisie) { if (window.ScrollTrigger) window.ScrollTrigger.refresh(); return; }
     rememberPosition();
     location.reload();
   });
@@ -77,8 +86,14 @@ function rememberPosition() {
   secs.forEach((s) => { const r = s.getBoundingClientRect(); if (r.top <= mid && r.bottom > mid) best = s.id; });
   if (best) sSet('icc-section', best);
 }
-export const hasPendingJump = () => !!(sGet('icc-section') || (location.hash && location.hash.length > 1 && location.hash !== '#top'));
+export const hasPendingJump = () => !!(sGet('icc-section') || (sGet('icc-pos') || '').split('#')[0] === location.pathname || (location.hash && location.hash.length > 1 && location.hash !== '#top'));
 export function restorePosition() {
+  // rechargement ou retour arrière sur la même page : on revient à la section mémorisée
+  const pos = sGet('icc-pos'); if (pos) sDel('icc-pos');
+  const nav = performance.getEntriesByType?.('navigation')[0];
+  if (pos && nav && (nav.type === 'reload' || nav.type === 'back_forward') && !location.hash && pos.split('#')[0] === location.pathname) {
+    const el = document.getElementById(pos.split('#')[1]); if (el) { jumpTo(el); return true; }
+  }
   const id = sGet('icc-section');
   if (id) { sDel('icc-section'); const el = document.getElementById(id); if (el) { jumpTo(el); return true; } }
   if (location.hash && location.hash.length > 1) {

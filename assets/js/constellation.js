@@ -316,6 +316,7 @@ export function mountSky({ intro = false, onReveal, until } = {}) {
   };
   try { sky = createConstellation(canvas, { onLost }); } catch (e) {
     canvas.remove(); document.documentElement.classList.add('no-webgl');
+    env.webgl = false; // sinon le repli rappelait la même branche WebGL sans fin (dépassement de pile)
     return mountSky({ intro: false, onReveal, until });
   }
   proxy.target = sky;

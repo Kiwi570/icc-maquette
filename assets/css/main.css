@@ -1,7 +1,7 @@
 /* ICC – maquette « Constellation » */
-@font-face { font-family: "Fraunces"; src: url("../fonts/fraunces-var.woff") format("woff"); font-weight: 100 900; font-style: normal; font-display: swap; }
-@font-face { font-family: "Fraunces"; src: url("../fonts/fraunces-italic-var.woff") format("woff"); font-weight: 100 900; font-style: italic; font-display: swap; }
-@font-face { font-family: "Manrope"; src: url("../fonts/manrope-var.woff") format("woff"); font-weight: 200 800; font-style: normal; font-display: swap; }
+@font-face { font-family: "Fraunces"; src: url("../fonts/fraunces-var.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }
+@font-face { font-family: "Fraunces"; src: url("../fonts/fraunces-italic-var.woff2") format("woff2"); font-weight: 100 900; font-style: italic; font-display: swap; }
+@font-face { font-family: "Manrope"; src: url("../fonts/manrope-var.woff2") format("woff2"); font-weight: 200 800; font-style: normal; font-display: swap; }
 
 :root {
   --night: #0B1A2A; --night-2: #102438; --night-3: #17304A; --deep: #06111D;
@@ -112,7 +112,7 @@ body::after { content: ""; position: fixed; inset: 0; z-index: 90; pointer-event
 .nav a[aria-current="page"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--accent); }
 .header__tools { display: flex; align-items: center; gap: .6rem; }
 .lang { display: inline-flex; border: 1px solid rgba(232, 238, 242, .22); border-radius: 999px; padding: 3px; }
-.lang a { text-decoration: none; font-size: var(--t-xs); font-weight: 700; padding: .28rem .6rem; min-height: 36px; min-width: 38px; display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; color: var(--slate); }
+.lang a { text-decoration: none; font-size: var(--t-xs); font-weight: 700; padding: .28rem .6rem; min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; color: var(--slate); }
 .lang a[aria-current="true"] { background: var(--mist); color: var(--night); }
 .calm-toggle { display: inline-flex; align-items: center; gap: .45rem; background: transparent; border: 1px solid rgba(232, 238, 242, .22); border-radius: 999px; padding: .42rem .75rem; min-height: 42px; font-size: var(--t-xs); font-weight: 600; color: var(--mist); }
 .calm-toggle__dot { width: 22px; height: 12px; border-radius: 999px; background: rgba(232, 238, 242, .2); position: relative; transition: background .3s; }
@@ -187,7 +187,7 @@ figcaption { font-size: var(--t-xs); color: var(--slate); margin-top: .6rem; }
 .is-intro .intro-skip { opacity: 1; visibility: visible; pointer-events: auto; transition: opacity .4s; }
 
 /* HERO accueil */
-.hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; padding-top: calc(var(--header-h) + 40px); padding-bottom: clamp(48px, 8vh, 96px); }
+.hero { position: relative; overflow: clip; min-height: 100svh; display: flex; align-items: flex-end; padding-top: calc(var(--header-h) + 40px); padding-bottom: clamp(48px, 8vh, 96px); }
 .hero__media img, .hero__media picture { width: 100%; height: 100%; object-fit: cover; }
 .hero__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(6, 17, 29, .55) 0%, rgba(6, 17, 29, 0) 22%, rgba(6, 17, 29, 0) 38%, rgba(11, 26, 42, .6) 72%, var(--night) 100%); }
 /* photo claire : voile renforcé à gauche pour le titre et en haut pour l'en-tête */
@@ -607,7 +607,7 @@ figcaption { font-size: var(--t-xs); color: var(--slate); margin-top: .6rem; }
 .exp__media { grid-column: 1 / span 5; position: sticky; top: calc(var(--header-h) + 24px); }
 .exp__media .media { aspect-ratio: 4 / 5; border-radius: 18px; }
 .exp__body { grid-column: 7 / span 6; }
-.exp__path { margin: 2.4rem 0; position: relative; padding-left: 34px; }
+.exp__path { margin: 2.4rem 0; position: relative; padding-left: 34px; overflow-x: clip; } /* les étapes arrivent de 20 px à droite : pas de défilement horizontal */
 .exp__path svg { position: absolute; left: 0; top: 0; height: 100%; width: 20px; overflow: visible; }
 .exp__path svg path { fill: none; stroke: var(--accent); stroke-width: 1.5; }
 .exp__path li { list-style: none; position: relative; padding-block: .8rem; font-family: var(--f-display); font-size: var(--t-xl); line-height: 1.2; }
@@ -756,7 +756,7 @@ figcaption { font-size: var(--t-xs); color: var(--slate); margin-top: .6rem; }
 .tools__head { grid-column: 1 / -1; }
 @media (max-width: 900px) { .alt__text, .alt__media { grid-column: 1 / -1; } }
 
-.disclaimer { margin-top: 2rem; padding: 1rem 1.2rem; border-left: 2px solid var(--accent); background: rgba(232, 238, 242, .04); font-size: var(--t-sm); color: var(--mist); }
+.disclaimer { max-width: 70ch; margin-top: 2rem; padding: 1rem 1.2rem; border-left: 2px solid var(--accent); background: rgba(232, 238, 242, .04); font-size: var(--t-sm); color: var(--mist); }
 
 /* Mentions légales */
 .legal { padding-top: calc(var(--header-h) + 80px); }
@@ -792,7 +792,7 @@ body.menu-open { overflow: hidden; }
 .place__logo { background: #102438; }
 .place__logo img { object-fit: contain; padding: 9px; }
 .note--review { margin-top: 1.6rem; max-width: 56em; padding: .9rem 1.1rem; border: 1px dashed rgba(138, 101, 16, .55); border-radius: 12px; background: rgba(242, 193, 78, .08); color: var(--ink-2); }
-.note--review b { display: block; color: var(--gold-ink); margin-bottom: .25rem; }
+.note--review b { display: block; color: #7a590e; margin-bottom: .25rem; }
 .scan__intro { margin-bottom: 1rem; }
 .decide { list-style: none; margin-top: 1.8rem; display: grid; gap: .7rem; font-size: var(--t-sm); }
 .decide li { display: grid; grid-template-columns: 6.5rem 1fr; gap: 1rem; padding-bottom: .7rem; border-bottom: 1px solid rgba(232, 238, 242, .12); }
@@ -833,3 +833,6 @@ body.menu-open { overflow: hidden; }
   .cat.is-pinned .course .media { height: clamp(96px, 17vh, 160px); }
   .cat.is-pinned .course__meta { font-size: var(--t-xs); }
 }
+
+/* audit : grands titres équilibrés */
+.h1, .h2, .manifesto__big, .contact__big, .flip__yes { text-wrap: balance; }

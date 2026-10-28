@@ -6,8 +6,8 @@ import { Transform } from './vendor/ogl/core/Transform.js';
 import { Program } from './vendor/ogl/core/Program.js';
 import { Geometry } from './vendor/ogl/core/Geometry.js';
 import { Mesh } from './vendor/ogl/core/Mesh.js';
-import { TREE } from './data/tree.js?v=20261028';
-import { env, accent, clamp, onResize } from './core.js?v=20261028';
+import { TREE } from './data/tree.js?v=20261028-2';
+import { env, accent, clamp, onResize } from './core.js?v=20261028-2';
 
 const { gsap } = window;
 

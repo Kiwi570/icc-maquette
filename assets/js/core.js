@@ -192,6 +192,39 @@ export function header() {
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
   h.addEventListener('focusin', () => h.classList.remove('is-hidden'));
+  // hauteur réelle de l'en-tête, réservée en haut des sections qui tiennent dans l'écran
+  const setH = () => document.documentElement.style.setProperty('--entete-h', `${Math.round(h.offsetHeight)}px`);
+  setH();
+  if ('ResizeObserver' in window) new ResizeObserver(setH).observe(h);
+}
+
+/* Téléphone : barre du bas avec l'action principale de la page, l'e-mail et le téléphone déjà présents.
+   Elle apparaît une fois le héros dépassé et s'efface sur les formulaires, le pied de page, les séquences épinglées et le menu ouvert. */
+export function bottomBar() {
+  const cta = document.querySelector('.header .btn--cta');
+  const mail = document.querySelector('.footer a[href^="mailto:"]');
+  const tel = document.querySelector('.footer a[href^="tel:"]');
+  const hero = document.querySelector('main .hero');
+  if (!cta || !hero || (!mail && !tel)) return;
+  const bar = document.createElement('nav');
+  bar.className = 'mbar';
+  bar.setAttribute('aria-label', t('Accès rapide', 'Quick access'));
+  bar.innerHTML = `<a class="btn btn--primary btn--sm mbar__cta" href="${cta.getAttribute('href')}"><span class="btn__label">${cta.textContent.trim()}</span></a>`
+    + (tel ? `<a class="mbar__icon" href="${tel.getAttribute('href')}" aria-label="${t('Appeler le', 'Call')} ${tel.textContent.trim()}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 4h3.5l1.6 4.2-2.1 1.4a11 11 0 0 0 6.4 6.4l1.4-2.1L20 15.5V19a1.5 1.5 0 0 1-1.6 1.5A16.5 16.5 0 0 1 3.5 5.6 1.5 1.5 0 0 1 5 4z" stroke-linejoin="round"/></svg></a>` : '')
+    + (mail ? `<a class="mbar__icon" href="${mail.getAttribute('href')}" aria-label="${t('Écrire à', 'Email')} ${mail.textContent.trim()}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="M4 7l8 6 8-6" stroke-linejoin="round"/></svg></a>` : '');
+  document.body.appendChild(bar);
+  const root = document.documentElement;
+  const setH = () => root.style.setProperty('--barres-h', `${Math.round(bar.offsetHeight)}px`);
+  setH();
+  if ('ResizeObserver' in window) new ResizeObserver(setH).observe(bar);
+  let pastHero = false;
+  const blockers = new Set();
+  const update = () => bar.classList.toggle('is-on', pastHero && blockers.size === 0 && !document.body.classList.contains('menu-open'));
+  new IntersectionObserver(([en]) => { pastHero = !en.isIntersecting && en.boundingClientRect.top < 0; update(); }).observe(hero);
+  const io = new IntersectionObserver((ens) => { ens.forEach((en) => { if (en.isIntersecting) blockers.add(en.target); else blockers.delete(en.target); }); update(); });
+  // formulaires, pied de page et séquences épinglées (plein écran) : la barre s'efface
+  document.querySelectorAll('form, .footer, .arch__stage, .flip__stage, .timeline__stage').forEach((el) => io.observe(el));
+  new MutationObserver(update).observe(document.body, { attributes: true, attributeFilter: ['class'] });
 }
 
 let menuEl, burger;

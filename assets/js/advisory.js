@@ -1,7 +1,7 @@
 /* ICC Advisory : scan des potentiels invisibles, renversements, 5 axes, financement systémique, cartographie (démo), expéditions */
-import { env, t, clamp, accent, tilt, counters, visibility, onResize } from './core.js?v=20261028';
-import { mountSky } from './constellation.js?v=20261028';
-import { wizards } from './wizard.js?v=20261028';
+import { env, t, clamp, accent, tilt, counters, visibility, onResize } from './core.js?v=20261028-2';
+import { mountSky } from './constellation.js?v=20261028-2';
+import { wizards } from './wizard.js?v=20261028-2';
 
 const { gsap, ScrollTrigger } = window;
 const rng = (seed) => () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };

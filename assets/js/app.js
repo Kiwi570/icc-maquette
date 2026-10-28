@@ -1,4 +1,4 @@
-import { detect, calmToggle, smoothScroll, anchors, header, menu, cursor, magnetic, splitReveals, accentScroll, veil, yearStamp, breakpointWatch, restorePosition } from './core.js?v=20261028';
+import { detect, calmToggle, smoothScroll, anchors, header, menu, cursor, magnetic, splitReveals, accentScroll, veil, yearStamp, breakpointWatch, restorePosition, bottomBar } from './core.js?v=20261028-2';
 
 detect();
 smoothScroll();
@@ -11,13 +11,14 @@ accentScroll();
 veil();
 yearStamp();
 breakpointWatch();
+bottomBar();
 
 const page = (document.querySelector('main[data-page]') || document.body).dataset.page;
 const start = async () => {
   try {
-    if (page === 'home') (await import('./home.js?v=20261028')).initHome();
-    else if (page === 'advisory') (await import('./advisory.js?v=20261028')).initAdvisory();
-    else if (page === 'jim') (await import('./jim.js?v=20261028')).initJim();
+    if (page === 'home') (await import('./home.js?v=20261028-2')).initHome();
+    else if (page === 'advisory') (await import('./advisory.js?v=20261028-2')).initAdvisory();
+    else if (page === 'jim') (await import('./jim.js?v=20261028-2')).initJim();
   } catch (e) {
     console.error(e);
     document.documentElement.classList.add('calm');

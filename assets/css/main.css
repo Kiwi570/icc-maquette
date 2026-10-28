@@ -840,9 +840,19 @@ body.menu-open { overflow: hidden; }
   .cat.is-pinned .cat__foot { gap: .4rem 2rem; }
 }
 @media (max-height: 680px) {
-  .cat.is-pinned .course { width: clamp(340px, 36vw, 420px); }
+  /* titre et filtres sur une seule rangée, marges resserrées : l'image des cartes garde une hauteur lisible */
+  .cat.is-pinned { padding-block: calc(var(--entete-h, var(--header-h)) + 8px) 10px; }
+  .cat.is-pinned .cat__head { flex-wrap: nowrap; align-items: center; gap: 1.2rem; margin-bottom: .7rem; }
+  .cat.is-pinned .cat__head > div:first-child { flex: 1 1 auto; min-width: 0; }
+  .cat.is-pinned .cat__head .h1 { font-size: 1.45rem; line-height: 1.1; }
+  .cat.is-pinned .filters { flex: none; flex-wrap: nowrap; gap: .4rem; }
+  .cat.is-pinned .filter { padding: .4rem .75rem; }
+  .cat.is-pinned .course { width: clamp(360px, 38vw, 420px); }
+  .cat.is-pinned .course .media { min-height: 84px; }
   .cat.is-pinned .course__body { padding: 12px 18px 14px; gap: .3rem; }
-  .cat.is-pinned .course__meta { padding-top: .35rem; }
+  .cat.is-pinned .course__text { line-height: 1.5; }
+  .cat.is-pinned .course__meta { padding-top: .35rem; line-height: 1.4; }
+  .cat.is-pinned .cat__foot { margin-top: .5rem; }
   /* prix et bouton sur la même ligne quand la place le permet */
   .cat.is-pinned .course__body { flex-flow: row wrap; align-items: center; column-gap: 1rem; }
   .cat.is-pinned .course__body > * { flex: 1 0 100%; }

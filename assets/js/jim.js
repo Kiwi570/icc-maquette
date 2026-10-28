@@ -1,9 +1,9 @@
 /* Junior Impact Maker : héros en masque, formules, frise juin → août, outils, alternance, travaux, candidature */
-import { env, t, clamp, tilt, counters, onResize } from './core.js';
-import { mountSky } from './constellation.js';
-import { countdowns } from './sessions.js';
-import { marquees } from './visuals.js';
-import { wizards } from './wizard.js';
+import { env, t, clamp, tilt, counters, onResize } from './core.js?v=20261028';
+import { mountSky } from './constellation.js?v=20261028';
+import { countdowns } from './sessions.js?v=20261028';
+import { marquees } from './visuals.js?v=20261028';
+import { wizards } from './wizard.js?v=20261028';
 
 const { gsap, ScrollTrigger } = window;
 

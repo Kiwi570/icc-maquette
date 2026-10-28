@@ -1,6 +1,6 @@
 /* Calendrier trié automatiquement + compte à rebours */
-import { SESSIONS, DEADLINE } from './data/sessions.js';
-import { env, t } from './core.js';
+import { SESSIONS, DEADLINE } from './data/sessions.js?v=20261028';
+import { env, t } from './core.js?v=20261028';
 
 const { gsap } = window;
 const L = (o) => (o && typeof o === 'object' ? o[env.lang] : o);

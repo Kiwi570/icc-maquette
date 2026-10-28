@@ -1,9 +1,9 @@
 /* Accueil : ouverture, manifeste, architecture en 6 niveaux, métiers, catalogue, carte, équipe, contact */
-import { env, t, clamp, scrollToTarget, tilt, counters, onResize, hasPendingJump } from './core.js';
-import { mountSky } from './constellation.js';
-import { renderSessions, countdowns } from './sessions.js';
-import { marquees, seed, worldMap } from './visuals.js';
-import { wizards } from './wizard.js';
+import { env, t, clamp, scrollToTarget, tilt, counters, onResize, hasPendingJump } from './core.js?v=20261028';
+import { mountSky } from './constellation.js?v=20261028';
+import { renderSessions, countdowns } from './sessions.js?v=20261028';
+import { marquees, seed, worldMap } from './visuals.js?v=20261028';
+import { wizards } from './wizard.js?v=20261028';
 
 const { gsap, ScrollTrigger } = window;
 

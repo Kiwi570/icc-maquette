@@ -1,5 +1,5 @@
 /* Formulaires en étapes simulés : prise de rendez-vous et candidature. Aucune donnée n'est envoyée. */
-import { env, t } from './core.js';
+import { env, t } from './core.js?v=20261028';
 
 const { gsap } = window;
 

@@ -1,6 +1,6 @@
 /* Visuels partagés : défilement des logos, graine qui devient réseau, carte Jura – Léman – Manhattan. */
-import { env, t, clamp, accent, fmt, visibility, onResize } from './core.js';
-import { LAND } from './data/land.js';
+import { env, t, clamp, accent, fmt, visibility, onResize } from './core.js?v=20261028';
+import { LAND } from './data/land.js?v=20261028';
 
 const { gsap, ScrollTrigger } = window;
 
